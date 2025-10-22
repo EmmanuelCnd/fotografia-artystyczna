@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotografia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Fotografia autystyczna</h1>
+    </header>
+    <aside>
+        <img src="./pliki/1.jpg" alt="a.jpg">
+        <img src="./pliki/2.jpg" alt="b.jpg">
+        <img src="./pliki/3.jpg" alt="a.jpg">
+        <img src="./pliki/4.jpg" alt="a.jpg">
+        <img src="./pliki/5.jpg" alt="a.jpg">
+        <img src="./pliki/6.jpg" alt="a.jpg">
+        <img src="./pliki/7.jpg" alt="a.jpg">
+        <img src="./pliki/8.jpg" alt="a.jpg">
+        <img src="./pliki/9.jpg" alt="a.jpg">
+        <img src="./pliki/10.jpg" alt="a.jpg">
+    </aside>
+    <main>
+        <article>
+            <h3>Zamówienie</h3>
+            <form method="post">
+                Wybierz obraz: <input type="file" name="plik" accept="image/jpeg" id="file"><br>
+                Liczba kopii <input type="number" id="num"><br>
+                <input type="radio" checked id="bl"> Papier błyszczący<br>
+                <input type="radio" id="mat"> Papier matowy<br>
+                <input type="button" onclick="dodaj()" value="Dodaj do koszyka">
+            </form>
+        </article>
+        <nav>
+            <a href="regulamin.html">Regulamin</a>
+            <a href="uslugi.html">Usługi</a>
+            <a href="https://pixabay.com">Zdjęcia</a>
+        </nav>
+        <section>
+            <h3>Koszyk</h3>
+            
+            <ul id="koszyk">
+                
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>Stronę wykonał: 60102977259</p>
+    </footer>
+
+    <script>
+        function dodaj(){
+            const input = document.getElementById("file");
+            const preview = document.getElementById("preview");
+            const file = input.files[0];
+            const liczba = document.getElementById("num").value;
+            if (!file) return;
+            let cena = 0;
+            let bl = document.getElementById('bl').checked;
+            let mat = document.getElementById('mat').checked;
+            if  (bl) {
+                cena = 1.5 * liczba;
+            } else if (mat) {
+                cena = 2 * liczba;
+            }
+            
+
+            const lista = document.getElementById("koszyk");
+
+            const li = document.createElement("li");
+
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            img.alt = "podgląd";
+            img.style.width = "75px";
+            img.onload = () => URL.revokeObjectURL(img.src);
+
+            const p1 = document.createElement("p");
+            p1.textContent = `Liczba kopii: ${liczba}`;
+
+            const p2 = document.createElement("p");
+            p2.textContent = `Cena: ${cena}`;
+
+            li.appendChild(img);
+            li.appendChild(p1);
+            li.appendChild(p2);
+
+            lista.appendChild(li);
+            innerHTML += '<br>';
+        }
+    </script>
+
+</body>
+</html>
